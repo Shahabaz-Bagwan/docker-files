@@ -1,0 +1,6 @@
+[submodule "resources/agnoster-bash"]
+	path = resources/agnoster-bash
+	url = https://github.com/shahabaz-bagwan/agnoster-bash
+[submodule "resources/fzf-tab-completion"]
+	path = resources/fzf-tab-completion
+	url = git@github.com:lincheney/fzf-tab-completion.git
