@@ -6,18 +6,15 @@ NC='\033[0m' # No Color
 
 echo -e "${RED}Run this only from docker folder${NC}"
 
-NAME="docker-container"
-echo "Enter container name, def: 'docker-container'"
-read NAME
+read -p "Enter container name [docker-container] " NAME
+NAME=${NAME:-'docker-container'}
 
 echo "building docker image.... "
-docker build -t $NAME:1.0 .
+docker build -t "$NAME":1.0 .
 
-echo -e "select directory to mount in container: \
-\n0 for present directory and 1 for parent directory \
-\n default present directory"
-SEL=-1
-read sel
+read -p "select directory to mount in container: \
+\n([0: present directory], 1: parent directory) " SEL
+SEL=${SEL:-0}
 if [ $SEL -ne 0 ]
 then
 	DIR=$(dirname `pwd`)

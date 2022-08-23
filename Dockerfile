@@ -9,6 +9,7 @@ ENV TZ=Europe/Berlin
 RUN  apt-get install -y ca-certificates
 
 RUN  apt-get install -y \
+    x11-xserver-utils \
     apt-utils \
     curl \
     wget \
@@ -26,7 +27,8 @@ RUN  apt-get install -y \
     cmake \
     clang-format \
     tmux \
-    fzf
+    fzf \
+    fontconfig
 
 ARG user=user
 RUN useradd -ms /bin/bash $user 
@@ -39,13 +41,14 @@ ENV HOME /home/$user
 
 RUN mkdir -p /home/$user/.fonts
 COPY resources/fonts /home/${user}/.fonts
-RUN fc-cache -Ev /home/${user}/.fonts
+RUN fc-cache -fv /home/${user}/.fonts
 
 RUN mkdir -p /home/$user/repos
 
 COPY resources/agnoster-bash /home/${user}/repos/agnoster-bash
 COPY resources/fzf-tab-completion /home/${user}/repos/fzf-tab-completion
 COPY resources/configs/bashrc /home/${user}/.bashrc
+COPY resources/configs/Xresources /home/${user}/.Xresources
 COPY resources/configs/tmux.conf /home/${user}/.tmux.conf
 
 RUN curl -fLo /home/$user/.vim/autoload/plug.vim --create-dirs \
